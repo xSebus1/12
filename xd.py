@@ -14,7 +14,7 @@ cursor.execute('''
 
 def bookManagerAdd(wypozyczona, tytuł, imie_autora, nazwisko_autora):
     try:
-        cursor.execute('''INSERT INTO biblioteka (wypozyczona, tytuł, imie_autora, nazwisko_autora) VALUES (?, ?, ?)''', (wypozyczona, tytuł, imie_autora, nazwisko_autora))
+        cursor.execute('''INSERT INTO biblioteka (wypozyczona, tytuł, imie_autora, nazwisko_autora) VALUES (?, ?, ?, ?)''', (wypozyczona, tytuł, imie_autora, nazwisko_autora))
     except sqlite3.Error as e:
         print(f" Bład przy operacji: {e}")
     finally:
@@ -97,3 +97,30 @@ def bookManagerUpdate(action, arg, id):
         finally:
             if conn:
                 conn.close
+                
+while True:
+    akcja = int(input("Wprowadz akcje (1 - Dodaj | 2 - Usuń | 3 - Aktualizacja | 4 - Pokaz po id)"))
+    if akcja == 1:
+        dodaj = int(input("Czy jest wypożyczona: 1 - tak 2 - nie: "))
+        tytul = input("Wprowadz tytuł: ")
+        imie_autora = input("Wprowadz imie autora: ")
+        nazwisko_autora = input("Wprowadz nazwisko autora: ")
+        
+        if (dodaj == 1):
+            bookManagerAdd(True, type, imie_autora, nazwisko_autora)
+        else:
+            bookManagerAdd(False, type, imie_autora, nazwisko_autora)       
+            
+    if akcja == 2:
+        id = int(input("Wprowadz id: "))
+        bookManagerRemove(id)
+        
+    if akcja == 3:
+        action = input("Wprowadz co zmienic (typ kolumny): ")
+        arg = input("Wprowadz na co chcesz zmienić (value): ")
+        id = int(input("Wprowadz id: "))
+        bookManagerUpdate(action, arg, id)
+        
+    if akcja == 4:
+        id = int(input("Wprowadz id: "))
+        bookManagerShowById(id)

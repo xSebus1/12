@@ -99,7 +99,7 @@ def bookManagerUpdate(action, arg, id):
                 conn.close
                 
 while True:
-    akcja = int(input("Wprowadz akcje (1 - Dodaj | 2 - Usuń | 3 - Aktualizacja | 4 - Pokaz po id)"))
+    akcja = int(input("Wprowadz akcje (1 - Dodaj | 2 - Usuń | 3 - Aktualizacja | 4 - Pokaz po id): "))
     if akcja == 1:
         dodaj = int(input("Czy jest wypożyczona: 1 - tak 2 - nie: "))
         tytul = input("Wprowadz tytuł: ")
@@ -107,20 +107,25 @@ while True:
         nazwisko_autora = input("Wprowadz nazwisko autora: ")
         
         if (dodaj == 1):
-            bookManagerAdd(True, type, imie_autora, nazwisko_autora)
+            bookManagerAdd(True, tytul, imie_autora, nazwisko_autora)
         else:
-            bookManagerAdd(False, type, imie_autora, nazwisko_autora)       
+            bookManagerAdd(False, tytul, imie_autora, nazwisko_autora)
+        bookManagerShowById(1)
+        break     
             
     if akcja == 2:
         id = int(input("Wprowadz id: "))
         bookManagerRemove(id)
+        break
         
     if akcja == 3:
         action = input("Wprowadz co zmienic (typ kolumny): ")
         arg = input("Wprowadz na co chcesz zmienić (value): ")
         id = int(input("Wprowadz id: "))
         bookManagerUpdate(action, arg, id)
+        break
         
     if akcja == 4:
         id = int(input("Wprowadz id: "))
         bookManagerShowById(id)
+        break
